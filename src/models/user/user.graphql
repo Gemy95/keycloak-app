@@ -1,0 +1,70 @@
+scalar Void
+
+type User {
+  id: Int!
+  email: String
+  username: String!
+  name: String
+  companyWork: String
+  password: String!
+  countryCode: String!
+  mobile: String!
+  createdAt: String
+  updatedAt: String
+}
+
+input CreateUserInput {
+  email: String
+  name: String
+  companyWork: String
+  password: String!
+  countryCode: String!
+  mobile: String!
+}
+
+input UpdateUserInput {
+  id: Int!
+  email: String
+  username: String
+  name: String
+  companyWork: String
+  password: String
+  countryCode: String
+  mobile: String
+  createdAt: String
+  updatedAt: String
+}
+
+input LoginUserInput {
+  username: String!
+  password: String!
+}
+
+type LoginUserOutput {
+  accessToken: String!
+  expiresIn: Int!
+  refreshToken: String!
+  refreshExpiresIn: Int!
+}
+
+
+input ResetPasswordUserInput {
+  newPassword: String!
+  oldPassword: String!
+}
+
+type Query {
+  users: [User]!
+  user(id: Int!): User!
+  login(loginUserInput: LoginUserInput!): LoginUserOutput!
+  accessTokenFromRefreshToken(refreshToken: String): LoginUserOutput!
+  logout: Void
+}
+
+type Mutation {
+  register(createUserInput: CreateUserInput!): User
+  resetPassword(resetPasswordUserInput: ResetPasswordUserInput!): User
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User
+}
